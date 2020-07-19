@@ -1,0 +1,25 @@
+翻译说明示例
+
+
+例如翻译项info 增加info_zh翻译即可
+info "     * No containers running"
+info_zh "     * 没有容器运行中"
+
+
+
+"Directory not found"
+没有找到目录
+
+"File not found"
+没有找到文件
+
+"Wrong ownership for $file"
+错误的所有权设置
+
+"Wrong permissions for $file"
+错误的文件权限设置
+
+
+
+
+

@@ -15,23 +15,52 @@ else
 fi
 
 logit () {
-  printf "%b\n" "$1" | tee -a "$logger"
+  if [ $standout = 1 ]
+  then
+    printf "%b\n" "$1" | tee -a "$logger"
+  else
+    printf "%b\n" "$1"  >> "$logger"
+  fi
 }
 
 info () {
-  printf "%b\n" "${bldblu}[INFO]${txtrst} $1" | tee -a "$logger"
+  infoCount=`expr $infoCount + 1`
+  if [ $standout = 1 ]
+  then
+    printf "%b\n" "${bldblu}[INFO]${txtrst} $1" | tee -a "$logger"
+  else
+    printf "%b\n" "${bldblu}[INFO]${txtrst} $1"  >> "$logger"
+  fi
 }
 
 pass () {
-  printf "%b\n" "${bldgrn}[PASS]${txtrst} $1" | tee -a "$logger"
+  passCount=`expr $passCount + 1`
+  if [ $standout = 1 ]
+  then
+    printf "%b\n" "${bldgrn}[PASS]${txtrst} $1" | tee -a "$logger"
+  else
+    printf "%b\n" "${bldgrn}[PASS]${txtrst} $1" >> "$logger"
+  fi
 }
 
 warn () {
-  printf "%b\n" "${bldred}[WARN]${txtrst} $1" | tee -a "$logger"
+  warnCount=`expr $warnCount + 1`
+  if [ $standout = 1 ]
+  then
+    printf "%b\n" "${bldred}[WARN]${txtrst} $1" | tee -a "$logger"
+  else
+    printf "%b\n" "$1"  >> "$logger"
+  fi
 }
 
 note () {
-  printf "%b\n" "${bldylw}[NOTE]${txtrst} $1" | tee -a "$logger"
+  noteCouunt=`expr $noteCouunt+1`
+  if [ $standout = 1 ]
+  then
+    printf "%b\n" "${bldylw}[NOTE]${txtrst} $1" | tee -a "$logger"
+  else
+    printf "%b\n" "${bldylw}[NOTE]${txtrst} $1" >> "$logger"
+  fi
 }
 
 yell () {
@@ -43,7 +72,7 @@ beginjson () {
 }
 
 endjson (){
-  printf "\n  ], \"checks\": %s, \"score\": %s, \"end\": %s \n}\n" "$1" "$2" "$3" | tee -a "$logger.json" 2>/dev/null 1>&2
+  printf "\n  ], \"checks\": %s, \"score\": %s, \"info\": %s, \"pass\": %s, \"warn\": %s, \"note\": %s, \"end\": %s \n}\n" "$1" "$2" "$3" "$4" "$5" "$6" "$7" | tee -a "$logger.json" 2>/dev/null 1>&2
 }
 
 logjson (){

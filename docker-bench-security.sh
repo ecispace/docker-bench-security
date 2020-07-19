@@ -16,6 +16,7 @@ version='1.3.5'
 # Setup the paths
 this_path=$(abspath "$0")       ## Path of this file including filename
 myname=$(basename "${this_path}")     ## file name of this script.
+myname=/tmp/docker-bench-security
 
 readonly version
 readonly this_path
@@ -24,19 +25,10 @@ readonly myname
 export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/local/bin:/usr/sbin/"
 
 # Check for required program(s)
-req_progs='awk docker grep stat'
+req_progs='awk docker grep ss stat'
 for p in $req_progs; do
   command -v "$p" >/dev/null 2>&1 || { printf "%s command not found.\n" "$p"; exit 1; }
 done
-
-if command -v ss >/dev/null 2>&1; then
-  netbin=ss
-elif command -v netstat >/dev/null 2>&1; then
-  netbin=netstat
-else
-  echo "ss or netstat command not found."
-  exit 1
-fi
 
 # Ensure we can connect to docker daemon
 if ! docker ps -q >/dev/null 2>&1; then
@@ -50,6 +42,7 @@ usage () {
 
   -b           optional  Do not print colors
   -h           optional  Print this help message
+  -o FMT       optional  Output json format
   -l FILE      optional  Log output in FILE
   -c CHECK     optional  Comma delimited list of specific check(s)
   -e CHECK     optional  Comma delimited list of specific check(s) to exclude
@@ -61,11 +54,12 @@ EOF
 # Get the flags
 # If you add an option here, please
 # remember to update usage() above.
-while getopts bhl:c:e:i:x:t: args
+while getopts bhl:c:o:e:i:x:t: args
 do
   case $args in
   b) nocolor="nocolor";;
   h) usage; exit 0 ;;
+  o) output="$OPTARG";;
   l) logger="$OPTARG" ;;
   c) check="$OPTARG" ;;
   e) checkexclude="$OPTARG" ;;
@@ -82,7 +76,17 @@ fi
 # Load output formating
 . ./output_lib.sh
 
-yell_info
+standout=1
+if [ "$output" = "json" ] || [ "$output" = "JSON" ]
+then
+  standout=0
+fi
+
+# shellcheck disable=SC1020
+if [ $standout = 1 ]
+then
+  yell_info
+fi
 
 # Warn if not root
 ID=$(id -u)
@@ -96,6 +100,10 @@ fi
 
 totalChecks=0
 currentScore=0
+infoCount=0
+passCount=0
+warnCount=0
+noteCount=0
 
 logit "Initializing $(date)\n"
 beginjson "$version" "$(date +%s)"
@@ -156,7 +164,7 @@ main () {
 
   for c in $(echo "$check" | sed "s/,/ /g"); do
     if ! command -v "$c" 2>/dev/null 1>&2; then
-      echo "Check \"$c\" doesn't seem to exist."
+      [ $standout = 0 ] && echo "Check \"$c\" doesn't seem to exist."
       continue
     fi
     if [ -z "$checkexclude" ]; then
@@ -186,11 +194,14 @@ main () {
     fi
   done
 
-  printf "\n"
+  [ $standout = 1 ] && printf "\n"
   info "Checks: $totalChecks"
   info "Score: $currentScore"
+  info "Info: $infoCount ,  Pass: $passCount,   Warn: $warnCount  , Note: $noteCount  "
 
-  endjson "$totalChecks" "$currentScore" "$(date +%s)"
+  endjson "$totalChecks" "$currentScore" "$infoCount" "$passCount" "$warnCount" "$noteCount" "$(date +%s)"
+
+  [ $standout = 0 ] && cat "${myname}.log.json"
 }
 
 main "$@"
