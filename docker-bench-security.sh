@@ -43,6 +43,7 @@ usage () {
   -b           optional  Do not print colors
   -h           optional  Print this help message
   -o FMT       optional  Output json format
+  -t LANG      optional  Translate to language
   -l FILE      optional  Log output in FILE
   -c CHECK     optional  Comma delimited list of specific check(s)
   -e CHECK     optional  Comma delimited list of specific check(s) to exclude
@@ -60,6 +61,7 @@ do
   b) nocolor="nocolor";;
   h) usage; exit 0 ;;
   o) output="$OPTARG";;
+  t) lang="$OPTARG";;
   l) logger="$OPTARG" ;;
   c) check="$OPTARG" ;;
   e) checkexclude="$OPTARG" ;;
@@ -68,6 +70,7 @@ do
   *) usage; exit 1 ;;
   esac
 done
+
 
 if [ -z "$logger" ]; then
   logger="${myname}.log"
@@ -150,9 +153,22 @@ main () {
     running_containers=1
   fi
 
-  for test in tests/*.sh; do
-    . ./"$test"
-  done
+
+  langprefix='trans/dockerbench-trans-'
+  testpath="tests"
+  if [ -n "$lang" ]
+  then
+   testpath="$langprefix$lang"
+  fi
+
+  if [ -d $testpath ]
+  then
+    for test in $testpath/*.sh; do
+      . ./"$test"
+    done
+  else
+    echo "testpath specific error"
+  fi
 
   if [ -z "$check" ] && [ ! "$checkexclude" ]; then
     # No options just run

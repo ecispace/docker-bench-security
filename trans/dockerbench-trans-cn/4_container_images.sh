@@ -12,7 +12,7 @@ check_4() {
 # 4.1
 check_4_1() {
   id_4_1="4.1"
-  desc_4_1="创建容器的用户 (Scored)"
+  desc_4_1="创建容器的用户 (计入评分)"
   check_4_1="$id_4_1  - $desc_4_1"
   starttestjson "$id_4_1" "$desc_4_1"
 
@@ -22,7 +22,7 @@ check_4_1() {
   if [ -z "$containers" ]; then
     info "$check_4_1"
     info "     * 没有运行中的容器"
-    resulttestjson "INFO" "没有运行中的容器"
+    resulttestjson "正常" "没有运行中的容器"
     currentScore=$((currentScore + 0))
   else
     # We have some containers running, set failure flag to 0. Check for Users.
@@ -50,10 +50,10 @@ check_4_1() {
     # We went through all the containers and found none running as root
     if [ $fail -eq 0 ]; then
         pass "$check_4_1"
-        resulttestjson "PASS"
+        resulttestjson "通过"
         currentScore=$((currentScore + 1))
     else
-        resulttestjson "WARN" "以root用户运行" "$root_containers"
+        resulttestjson "警告" "以root用户运行" "$root_containers"
         currentScore=$((currentScore - 1))
     fi
   fi
@@ -64,57 +64,57 @@ check_4_1() {
 # 4.2
 check_4_2() {
   id_4_2="4.2"
-  desc_4_2="容器使用可信的基础镜像 (Not Scored)"
+  desc_4_2="容器使用可信的基础镜像 (不计评分)"
   check_4_2="$id_4_2  - $desc_4_2"
   starttestjson "$id_4_2" "$desc_4_2"
 
   totalChecks=$((totalChecks + 1))
   note "$check_4_2"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
 # 4.3
 check_4_3() {
   id_4_3="4.3"
-  desc_4_3="容器中不安装没有必要的软件包 (Not Scored)"
+  desc_4_3="容器中不安装没有必要的软件包 (不计评分)"
   check_4_3="$id_4_3  - $desc_4_3"
   starttestjson "$id_4_3" "$desc_4_3"
 
   totalChecks=$((totalChecks + 1))
   note "$check_4_3"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
 # 4.4
 check_4_4() {
   id_4_4="4.4"
-  desc_4_4="扫描镜像漏洞并且构建包含安全补丁的镜像 (Not Scored)"
+  desc_4_4="扫描镜像漏洞并且构建包含安全补丁的镜像 (不计评分)"
   check_4_4="$id_4_4  - $desc_4_4"
   starttestjson "$id_4_4" "$desc_4_4"
 
   totalChecks=$((totalChecks + 1))
   note "$check_4_4"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
 # 4.5
 check_4_5() {
   id_4_5="4.5"
-  desc_4_5="启用 docker 内容信任 (Scored)"
+  desc_4_5="启用 docker 内容信任 (计入评分)"
   check_4_5="$id_4_5  - $desc_4_5"
   starttestjson "$id_4_5" "$desc_4_5"
 
   totalChecks=$((totalChecks + 1))
   if [ "x$DOCKER_CONTENT_TRUST" = "x1" ]; then
     pass "$check_4_5"
-    resulttestjson "PASS"
+    resulttestjson "通过"
     currentScore=$((currentScore + 1))
   else
     warn "$check_4_5"
-    resulttestjson "WARN"
+    resulttestjson "警告"
     currentScore=$((currentScore - 1))
   fi
 }
@@ -122,7 +122,7 @@ check_4_5() {
 # 4.6
 check_4_6() {
   id_4_6="4.6"
-  desc_4_6="将 HEALTHCHECK 说明添加到容器镜像 (Scored)"
+  desc_4_6="将 HEALTHCHECK 说明添加到容器镜像 (计入评分)"
   check_4_6="$id_4_6  - $desc_4_6"
   starttestjson "$id_4_6" "$desc_4_6"
 
@@ -144,10 +144,10 @@ check_4_6() {
   done
   if [ $fail -eq 0 ]; then
     pass "$check_4_6"
-    resulttestjson "PASS"
+    resulttestjson "通过"
     currentScore=$((currentScore + 1))
   else
-    resulttestjson "WARN" "没有安全检查的镜像" "$no_health_images"
+    resulttestjson "警告" "没有安全检查的镜像" "$no_health_images"
     currentScore=$((currentScore - 1))
   fi
 }
@@ -155,7 +155,7 @@ check_4_6() {
 # 4.7
 check_4_7() {
   id_4_7="4.7"
-  desc_4_7="不在 dockerfile 中单独使用更新命令 (Not Scored)"
+  desc_4_7="不在 dockerfile 中单独使用更新命令 (不计评分)"
   check_4_7="$id_4_7  - $desc_4_7"
   starttestjson "$id_4_7" "$desc_4_7"
 
@@ -177,10 +177,10 @@ check_4_7() {
   done
   if [ $fail -eq 0 ]; then
     pass "$check_4_7"
-    resulttestjson "PASS"
+    resulttestjson "通过"
     currentScore=$((currentScore + 0))
   else
-    resulttestjson "INFO" "发现更新指令" "$update_images"
+    resulttestjson "正常" "发现更新指令" "$update_images"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -188,20 +188,20 @@ check_4_7() {
 # 4.8
 check_4_8() {
   id_4_8="4.8"
-  desc_4_8="镜像中删除 setuid 和 setgid 权限 (Not Scored)"
+  desc_4_8="镜像中删除 setuid 和 setgid 权限 (不计评分)"
   check_4_8="$id_4_8  - $desc_4_8"
   starttestjson "$id_4_8" "$desc_4_8"
 
   totalChecks=$((totalChecks + 1))
   note "$check_4_8"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
 # 4.9
 check_4_9() {
   id_4_9="4.9"
-  desc_4_9="在 dockerfile 中使用 COPY 而不是 ADD  (Not Scored)"
+  desc_4_9="在 dockerfile 中使用 COPY 而不是 ADD  (不计评分)"
   check_4_9="$id_4_9  - $desc_4_9"
   starttestjson "$id_4_9" "$desc_4_9"
 
@@ -225,36 +225,36 @@ check_4_9() {
   done
   if [ $fail -eq 0 ]; then
     pass "$check_4_9"
-    resulttestjson "PASS"
+    resulttestjson "通过"
     currentScore=$((currentScore + 0))
   else
-    resulttestjson "INFO" "使用了ADD的镜像" "$add_images"
+    resulttestjson "正常" "使用了ADD的镜像" "$add_images"
   fi
 }
 
 # 4.10
 check_4_10() {
   id_4_10="4.10"
-  desc_4_10="涉密信息不存储在 Dockerfiles (Not Scored)"
+  desc_4_10="涉密信息不存储在 Dockerfiles (不计评分)"
   check_4_10="$id_4_10  - $desc_4_10"
   starttestjson "$id_4_10" "$desc_4_10"
 
   totalChecks=$((totalChecks + 1))
   note "$check_4_10"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
 # 4.11
 check_4_11() {
   id_4_11="4.11"
-  desc_4_11="仅安装已经验证的软件包 (Not Scored)"
+  desc_4_11="仅安装已经验证的软件包 (不计评分)"
   check_4_11="$id_4_11  - $desc_4_11"
   starttestjson "$id_4_11" "$desc_4_11"
 
   totalChecks=$((totalChecks + 1))
   note "$check_4_11"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 

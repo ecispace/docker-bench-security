@@ -36,13 +36,13 @@ check_8_1_1() {
   fi
 
   id_8_1_1="8.1.1"
-  desc_8_1_1="配置LDAP认证服务 (Scored)"
+  desc_8_1_1="配置LDAP认证服务 (计入评分)"
   check_8_1_1="$id_8_1_1  - $desc_8_1_1"
   starttestjson "$id_8_1_1" "$desc_8_1_1"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_1"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -53,13 +53,13 @@ check_8_1_2() {
   fi
 
   id_8_1_2="8.1.2"
-  desc_8_1_2="使用外部证书 (Scored)"
+  desc_8_1_2="使用外部证书 (计入评分)"
   check_8_1_2="$id_8_1_2  - $desc_8_1_2"
   starttestjson "$id_8_1_2" "$desc_8_1_2"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_2"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -70,13 +70,13 @@ check_8_1_3() {
   fi
 
   id_8_1_3="8.1.3"
-  desc_8_1_3="为没有授权的用户使用客户端证书包 (Not Scored)"
+  desc_8_1_3="为没有授权的用户使用客户端证书包 (不计评分)"
   check_8_1_3="$id_8_1_3  - $desc_8_1_3"
   starttestjson "$id_8_1_3" "$desc_8_1_3"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_3"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -87,13 +87,13 @@ check_8_1_4() {
   fi
 
   id_8_1_4="8.1.4"
-  desc_8_1_4="配备适用于集群的RBAC策略 (Not Scored)"
+  desc_8_1_4="配备适用于集群的RBAC策略 (不计评分)"
   check_8_1_4="$id_8_1_4  - $desc_8_1_4"
   starttestjson "$id_8_1_4" "$desc_8_1_4"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_4"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -104,14 +104,14 @@ check_8_1_5() {
   fi
 
   id_8_1_5="8.1.5"
-  #desc_8_1_5="Enable signed image enforcement (Scored)"
-  desc_8_1_5="启用签名镜像增强 (Scored)"
+  #desc_8_1_5="Enable signed image enforcement (计入评分)"
+  desc_8_1_5="启用签名镜像增强 (计入评分)"
   check_8_1_5="$id_8_1_5  - $desc_8_1_5"
   starttestjson "$id_8_1_5" "$desc_8_1_5"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_5"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -122,13 +122,13 @@ check_8_1_6() {
   fi
 
   id_8_1_6="8.1.6"
-  desc_8_1_6="设置每个用户的会话值为'3'或更低 (Scored)"
+  desc_8_1_6="设置每个用户的会话值为'3'或更低 (计入评分)"
   check_8_1_6="$id_8_1_6  - $desc_8_1_6"
   starttestjson "$id_8_1_6" "$desc_8_1_6"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_6"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -139,13 +139,13 @@ check_8_1_7() {
   fi
 
   id_8_1_7="8.1.7"
-  desc_8_1_7="设置 'Lifetime Minutes'值为15  , 'Renewal Threshold Minutes'值为0  (Scored)"
+  desc_8_1_7="设置 'Lifetime Minutes'值为15  , 'Renewal Threshold Minutes'值为0  (计入评分)"
   check_8_1_7="$id_8_1_7  - $desc_8_1_7"
   starttestjson "$id_8_1_7" "$desc_8_1_7"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_7"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -167,13 +167,13 @@ check_8_2_1() {
   fi
 
   id_8_2_1="8.2.1"
-  desc_8_2_1="允许镜像漏洞扫描 (Scored)"
+  desc_8_2_1="允许镜像漏洞扫描 (计入评分)"
   check_8_2_1="$id_8_2_1  - $desc_8_2_1"
   starttestjson "$id_8_2_1" "$desc_8_2_1"
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_2_1"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 

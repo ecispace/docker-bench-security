@@ -29,7 +29,7 @@ check_5_1() {
   fi
 
   id_5_1="5.1"
-  desc_5_1="启用 AppArmor 配置文件 (Scored)"
+  desc_5_1="启用 AppArmor 配置文件 (计入评分)"
   check_5_1="$id_5_1  - $desc_5_1"
   starttestjson "$id_5_1" "$desc_5_1"
 
@@ -56,10 +56,10 @@ check_5_1() {
   # We went through all the containers and found none without AppArmor
   if [ $fail -eq 0 ]; then
       pass "$check_5_1"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "没有 AppArmorProfile 的容器" "$no_apparmor_containers"
+      resulttestjson "警告" "没有 AppArmorProfile 的容器" "$no_apparmor_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -71,7 +71,7 @@ check_5_2() {
   fi
 
   id_5_2="5.2"
-  desc_5_2="设置 SElinux 安全选项 (Scored)"
+  desc_5_2="设置 SElinux 安全选项 (计入评分)"
   check_5_2="$id_5_2  - $desc_5_2"
   starttestjson "$id_5_2" "$desc_5_2"
 
@@ -98,10 +98,10 @@ check_5_2() {
   # We went through all the containers and found none without SELinux
   if [ $fail -eq 0 ]; then
       pass "$check_5_2"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "没有发现 SecurityOptions 的容器" "$no_securityoptions_containers"
+      resulttestjson "警告" "没有发现 SecurityOptions 的容器" "$no_securityoptions_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -113,7 +113,7 @@ check_5_3() {
   fi
 
   id_5_3="5.3"
-  desc_5_3="linux 内核功能在容器内受限 (Scored)"
+  desc_5_3="linux 内核功能在容器内受限 (计入评分)"
   check_5_3="$id_5_3  - $desc_5_3"
   starttestjson "$id_5_3" "$desc_5_3"
 
@@ -143,10 +143,10 @@ check_5_3() {
   # We went through all the containers and found none with extra capabilities
   if [ $fail -eq 0 ]; then
       pass "$check_5_3"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "添加了内核级功能的容器" "$caps_containers"
+      resulttestjson "警告" "添加了内核级功能的容器" "$caps_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -158,7 +158,7 @@ check_5_4() {
   fi
 
   id_5_4="5.4"
-  desc_5_4="不使用特权容器 (Scored)"
+  desc_5_4="不使用特权容器 (计入评分)"
   check_5_4="$id_5_4  - $desc_5_4"
   starttestjson "$id_5_4" "$desc_5_4"
 
@@ -185,10 +185,10 @@ check_5_4() {
   # We went through all the containers and found no privileged containers
   if [ $fail -eq 0 ]; then
       pass "$check_5_4"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "运行在特权模式的容器" "$privileged_containers"
+      resulttestjson "警告" "运行在特权模式的容器" "$privileged_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -200,7 +200,7 @@ check_5_5() {
   fi
 
   id_5_5="5.5"
-  desc_5_5="敏感的主机系统目录未挂载在容器上 (Scored)"
+  desc_5_5="敏感的主机系统目录未挂载在容器上 (计入评分)"
   check_5_5="$id_5_5  - $desc_5_5"
   starttestjson "$id_5_5" "$desc_5_5"
 
@@ -247,10 +247,10 @@ check_5_5() {
   # We went through all the containers and found none with sensitive mounts
   if [ $fail -eq 0 ]; then
       pass "$check_5_5"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "挂载敏感目录的容器" "$sensitive_mount_containers"
+      resulttestjson "警告" "挂载敏感目录的容器" "$sensitive_mount_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -262,7 +262,7 @@ check_5_6() {
   fi
 
   id_5_6="5.6"
-  desc_5_6="sshd不在容器中运行 (Scored)"
+  desc_5_6="sshd不在容器中运行 (计入评分)"
   check_5_6="$id_5_6  - $desc_5_6"
   starttestjson "$id_5_6" "$desc_5_6"
 
@@ -303,11 +303,11 @@ check_5_6() {
   # We went through all the containers and found none with sshd
   if [ $fail -eq 0 ]; then
       pass "$check_5_6"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      #resulttestjson "WARN" "Containers with sshd/docker exec failures" "$ssh_exec_containers"
-      resulttestjson "WARN" "sshd/docker exec执行失败的容器" "$ssh_exec_containers"
+      #resulttestjson "警告" "Containers with sshd/docker exec failures" "$ssh_exec_containers"
+      resulttestjson "警告" "sshd/docker exec执行失败的容器" "$ssh_exec_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -319,7 +319,7 @@ check_5_7() {
   fi
 
   id_5_7="5.7"
-  desc_5_7="特权端口禁止映射到容器内 (Scored)"
+  desc_5_7="特权端口禁止映射到容器内 (计入评分)"
   check_5_7="$id_5_7  - $desc_5_7"
   starttestjson "$id_5_7" "$desc_5_7"
 
@@ -350,10 +350,10 @@ check_5_7() {
   # We went through all the containers and found no privileged ports
   if [ $fail -eq 0 ]; then
       pass "$check_5_7"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "使用特权端口的容器" "$privileged_port_containers"
+      resulttestjson "警告" "使用特权端口的容器" "$privileged_port_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -365,13 +365,13 @@ check_5_8() {
   fi
 
   id_5_8="5.8"
-  desc_5_8="只映射必要的端口只映射必要的端口 (Not Scored)"
+  desc_5_8="只映射必要的端口只映射必要的端口 (不计评分)"
   check_5_8="$id_5_8  - $desc_5_8"
   starttestjson "$id_5_8" "$desc_5_8"
 
   totalChecks=$((totalChecks + 1))
   note "$check_5_8"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
@@ -382,7 +382,7 @@ check_5_9() {
   fi
 
   id_5_9="5.9"
-  desc_5_9="不共享主机的网络命名空间 (Scored)"
+  desc_5_9="不共享主机的网络命名空间 (计入评分)"
   check_5_9="$id_5_9  - $desc_5_9"
   starttestjson "$id_5_9" "$desc_5_9"
 
@@ -409,10 +409,10 @@ check_5_9() {
   # We went through all the containers and found no Network Mode host
   if [ $fail -eq 0 ]; then
       pass "$check_5_9"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 0))
   else
-      resulttestjson "WARN" "运行在 host 网络模式的容器" "$net_host_containers"
+      resulttestjson "警告" "运行在 host 网络模式的容器" "$net_host_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -424,7 +424,7 @@ check_5_10() {
   fi
 
   id_5_10="5.10"
-  desc_5_10="确保容器的内存使用合理 (Scored)"
+  desc_5_10="确保容器的内存使用合理 (计入评分)"
   check_5_10="$id_5_10  - $desc_5_10"
   starttestjson "$id_5_10" "$desc_5_10"
 
@@ -455,10 +455,10 @@ check_5_10() {
   # We went through all the containers and found no lack of Memory restrictions
   if [ $fail -eq 0 ]; then
       pass "$check_5_10"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "没有做内存限制的容器" "$mem_unlimited_containers"
+      resulttestjson "警告" "没有做内存限制的容器" "$mem_unlimited_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -470,7 +470,7 @@ check_5_11() {
   fi
 
   id_5_11="5.11"
-  desc_5_11="正确设置容器上的 CPU 优先级 (Scored)"
+  desc_5_11="正确设置容器上的 CPU 优先级 (计入评分)"
   check_5_11="$id_5_11  - $desc_5_11"
   starttestjson "$id_5_11" "$desc_5_11"
 
@@ -501,10 +501,10 @@ check_5_11() {
   # We went through all the containers and found no lack of CPUShare restrictions
   if [ $fail -eq 0 ]; then
       pass "$check_5_11"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "没有做CPU限制的容器" "$cpu_unlimited_containers"
+      resulttestjson "警告" "没有做CPU限制的容器" "$cpu_unlimited_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -516,7 +516,7 @@ check_5_12() {
   fi
 
   id_5_12="5.12"
-  desc_5_12="设置容器的根文件系统为只读 (Scored)"
+  desc_5_12="设置容器的根文件系统为只读 (计入评分)"
   check_5_12="$id_5_12  - $desc_5_12"
   starttestjson "$id_5_12" "$desc_5_12"
 
@@ -543,10 +543,10 @@ check_5_12() {
   # We went through all the containers and found no R/W FS mounts
   if [ $fail -eq 0 ]; then
       pass "$check_5_12"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "根文件系统挂载为读写的容器" "$fsroot_mount_containers"
+      resulttestjson "警告" "根文件系统挂载为读写的容器" "$fsroot_mount_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -558,7 +558,7 @@ check_5_13() {
   fi
 
   id_5_13="5.13"
-  desc_5_13="确保进入容器的流量绑定到特定的主机接口 (Scored)"
+  desc_5_13="确保进入容器的流量绑定到特定的主机接口 (计入评分)"
   check_5_13="$id_5_13  - $desc_5_13"
   starttestjson "$id_5_13" "$desc_5_13"
 
@@ -585,10 +585,10 @@ check_5_13() {
   # We went through all the containers and found no ports bound to 0.0.0.0
   if [ $fail -eq 0 ]; then
       pass "$check_5_13"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "一些容器的端口绑定了不做限定的IP" "$incoming_unbound_containers"
+      resulttestjson "警告" "一些容器的端口绑定了不做限定的IP" "$incoming_unbound_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -600,7 +600,7 @@ check_5_14() {
   fi
 
   id_5_14="5.14"
-  desc_5_14="容器重启策略 on-failure 设置为 5  (Scored)"
+  desc_5_14="容器重启策略 on-failure 设置为 5  (计入评分)"
   check_5_14="$id_5_14  - $desc_5_14"
   starttestjson "$id_5_14" "$desc_5_14"
 
@@ -627,10 +627,10 @@ check_5_14() {
   # We went through all the containers and they all had MaximumRetryCount=5
   if [ $fail -eq 0 ]; then
       pass "$check_5_14"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "最大重试次数没有设置为 5 的容器" "$maxretry_unset_containers"
+      resulttestjson "警告" "最大重试次数没有设置为 5 的容器" "$maxretry_unset_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -642,7 +642,7 @@ check_5_15() {
   fi
 
   id_5_15="5.15"
-  desc_5_15="确保主机的进程命名空间不共享 (Scored)"
+  desc_5_15="确保主机的进程命名空间不共享 (计入评分)"
   check_5_15="$id_5_15  - $desc_5_15"
   starttestjson "$id_5_15" "$desc_5_15"
 
@@ -669,10 +669,10 @@ check_5_15() {
   # We went through all the containers and found none with PidMode as host
   if [ $fail -eq 0 ]; then
       pass "$check_5_15"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "一些容器的主机PID命名空间被共享" "$pidns_shared_containers"
+      resulttestjson "警告" "一些容器的主机PID命名空间被共享" "$pidns_shared_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -684,7 +684,7 @@ check_5_16() {
   fi
 
   id_5_16="5.16"
-  desc_5_16="主机的 IPC 命令空间不共享 (Scored)"
+  desc_5_16="主机的 IPC 命令空间不共享 (计入评分)"
   check_5_16="$id_5_16  - $desc_5_16"
   starttestjson "$id_5_16" "$desc_5_16"
 
@@ -711,10 +711,10 @@ check_5_16() {
   # We went through all the containers and found none with IPCMode as host
   if [ $fail -eq 0 ]; then
       pass "$check_5_16"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "一些容器的主机IPC命名空间被共享" "$ipcns_shared_containers"
+      resulttestjson "警告" "一些容器的主机IPC命名空间被共享" "$ipcns_shared_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -726,7 +726,7 @@ check_5_17() {
   fi
 
   id_5_17="5.17"
-  desc_5_17="主机设备不直接共享给容器 (Not Scored)"
+  desc_5_17="主机设备不直接共享给容器 (不计评分)"
   check_5_17="$id_5_17  - $desc_5_17"
   starttestjson "$id_5_17" "$desc_5_17"
 
@@ -755,10 +755,10 @@ check_5_17() {
   # We went through all the containers and found none with devices
   if [ $fail -eq 0 ]; then
       pass "$check_5_17"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "INFO" "容器中有直接暴露的主机设备" "$hostdev_exposed_containers"
+      resulttestjson "正常" "容器中有直接暴露的主机设备" "$hostdev_exposed_containers"
       currentScore=$((currentScore + 0))
   fi
 }
@@ -770,7 +770,7 @@ check_5_18() {
   fi
 
   id_5_18="5.18"
-  desc_5_18="设置默认的 ulimit 配置（在需要时） (Not Scored)"
+  desc_5_18="设置默认的 ulimit 配置（在需要时） (不计评分)"
   check_5_18="$id_5_18  - $desc_5_18"
   starttestjson "$id_5_18" "$desc_5_18"
 
@@ -797,10 +797,10 @@ check_5_18() {
   # We went through all the containers and found none without Ulimits
   if [ $fail -eq 0 ]; then
       pass "$check_5_18"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "INFO" "容器没有设置ulimit默认值" "$no_ulimit_containers"
+      resulttestjson "正常" "容器没有设置ulimit默认值" "$no_ulimit_containers"
       currentScore=$((currentScore + 0))
   fi
 }
@@ -812,7 +812,7 @@ check_5_19() {
   fi
 
   id_5_19="5.19"
-  desc_5_19="设置装载传播模式不共享 (Scored)"
+  desc_5_19="设置装载传播模式不共享 (计入评分)"
   check_5_19="$id_5_19  - $desc_5_19"
   starttestjson "$id_5_19" "$desc_5_19"
 
@@ -838,10 +838,10 @@ check_5_19() {
   # We went through all the containers and found none with shared propagation mode
   if [ $fail -eq 0 ]; then
       pass "$check_5_19"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-    resulttestjson "WARN" "一些容器的装载传播模式设置了共享" "$mountprop_shared_containers"
+    resulttestjson "警告" "一些容器的装载传播模式设置了共享" "$mountprop_shared_containers"
     currentScore=$((currentScore - 1))
   fi
 }
@@ -853,7 +853,7 @@ check_5_20() {
   fi
 
   id_5_20="5.20"
-  desc_5_20="设置主机的 UTS 命令空间不共享 (Scored)"
+  desc_5_20="设置主机的 UTS 命令空间不共享 (计入评分)"
   check_5_20="$id_5_20  - $desc_5_20"
   starttestjson "$id_5_20" "$desc_5_20"
 
@@ -880,10 +880,10 @@ check_5_20() {
   # We went through all the containers and found none with UTSMode as host
   if [ $fail -eq 0 ]; then
       pass "$check_5_20"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "一些容器的主机的 UTS 命令空间被共享" "$utcns_shared_containers"
+      resulttestjson "警告" "一些容器的主机的 UTS 命令空间被共享" "$utcns_shared_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -895,7 +895,7 @@ check_5_21() {
   fi
 
   id_5_21="5.21"
-  desc_5_21="默认的 seccomp 配置文件未禁用 (Scored)"
+  desc_5_21="默认的 seccomp 配置文件未禁用 (计入评分)"
   check_5_21="$id_5_21  - $desc_5_21"
   starttestjson "$id_5_21" "$desc_5_21"
 
@@ -921,10 +921,10 @@ check_5_21() {
   # We went through all the containers and found none with default secomp profile disabled
   if [ $fail -eq 0 ]; then
       pass "$check_5_21"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "这些容器的默认的 seccomp 配置文件设置了禁用" "$seccomp_disabled_containers"
+      resulttestjson "警告" "这些容器的默认的 seccomp 配置文件设置了禁用" "$seccomp_disabled_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -936,13 +936,13 @@ check_5_22() {
   fi
 
   id_5_22="5.22"
-  desc_5_22="docker exec 命令不能使用特权选项n (Scored)"
+  desc_5_22="docker exec 命令不能使用特权选项n (计入评分)"
   check_5_22="$id_5_22  - $desc_5_22"
   starttestjson "$id_5_22" "$desc_5_22"
 
   totalChecks=$((totalChecks + 1))
   note "$check_5_22"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
@@ -953,13 +953,13 @@ check_5_23() {
   fi
 
   id_5_23="5.23"
-  desc_5_23="docker exec 命令不能与 uuser=root 选项一起使用 (Not Scored)"
+  desc_5_23="docker exec 命令不能与 uuser=root 选项一起使用 (不计评分)"
   check_5_23="$id_5_23  - $desc_5_23"
   starttestjson "$id_5_23" "$desc_5_23"
 
   totalChecks=$((totalChecks + 1))
   note "$check_5_23"
-  resulttestjson "NOTE"
+  resulttestjson "提示"
   currentScore=$((currentScore + 0))
 }
 
@@ -970,7 +970,7 @@ check_5_24() {
   fi
 
   id_5_24="5.24"
-  desc_5_24="确保 cgroug 安全使用 (Scored)"
+  desc_5_24="确保 cgroug 安全使用 (计入评分)"
   check_5_24="$id_5_24  - $desc_5_24"
   starttestjson "$id_5_24" "$desc_5_24"
 
@@ -997,10 +997,10 @@ check_5_24() {
   # We went through all the containers and found none with UTSMode as host
   if [ $fail -eq 0 ]; then
       pass "$check_5_24"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "这些容器使用了不安全的cgroug" "$unexpected_cgroup_containers"
+      resulttestjson "警告" "这些容器使用了不安全的cgroug" "$unexpected_cgroup_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -1011,7 +1011,7 @@ check_5_25() {
     return
   fi
   id_5_25="5.25"
-  desc_5_25="限制容器获得额外的权限 (Scored)"
+  desc_5_25="限制容器获得额外的权限 (计入评分)"
   check_5_25="$id_5_25  - $desc_5_25"
   starttestjson "$id_5_25" "$desc_5_25"
 
@@ -1036,10 +1036,10 @@ check_5_25() {
   # We went through all the containers and found none with capability to acquire additional privileges
   if [ $fail -eq 0 ]; then
       pass "$check_5_25"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "这些容器的权限没有做限定" "$addprivs_containers"
+      resulttestjson "警告" "这些容器的权限没有做限定" "$addprivs_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -1051,7 +1051,7 @@ check_5_26() {
   fi
 
   id_5_26="5.26"
-  desc_5_26="运行时检查容器健康状态 (Scored)"
+  desc_5_26="运行时检查容器健康状态 (计入评分)"
   check_5_26="$id_5_26  - $desc_5_26"
   starttestjson "$id_5_26" "$desc_5_26"
 
@@ -1074,10 +1074,10 @@ check_5_26() {
   done
   if [ $fail -eq 0 ]; then
       pass "$check_5_26"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "这些容器没有设置健康检查" "$nohealthcheck_containers"
+      resulttestjson "警告" "这些容器没有设置健康检查" "$nohealthcheck_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -1089,13 +1089,13 @@ check_5_27() {
   fi
 
   id_5_27="5.27"
-  desc_5_27="确保 docker 命令始终获取最新版本的镜像 (Not Scored)"
+  desc_5_27="确保 docker 命令始终获取最新版本的镜像 (不计评分)"
   check_5_27="$id_5_27  - $desc_5_27"
   starttestjson "$id_5_27" "$desc_5_27"
 
   totalChecks=$((totalChecks + 1))
   info "$check_5_27"
-  resulttestjson "INFO"
+  resulttestjson "正常"
   currentScore=$((currentScore + 0))
 }
 
@@ -1106,7 +1106,7 @@ check_5_28() {
   fi
 
   id_5_28="5.28"
-  desc_5_28="限制使用 PID cgroup (Scored)"
+  desc_5_28="限制使用 PID cgroup (计入评分)"
   check_5_28="$id_5_28  - $desc_5_28"
   starttestjson "$id_5_28" "$desc_5_28"
 
@@ -1133,10 +1133,10 @@ check_5_28() {
   # We went through all the containers and found all with PIDs limit
   if [ $fail -eq 0 ]; then
       pass "$check_5_28"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "这些容器没有设置PID限制" "$nopids_limit_containers"
+      resulttestjson "警告" "这些容器没有设置PID限制" "$nopids_limit_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -1148,7 +1148,7 @@ check_5_29() {
   fi
 
   id_5_29="5.29"
-  desc_5_29="不要使用 docker 的默认网桥 docker0 (Not Scored)"
+  desc_5_29="不要使用 docker 的默认网桥 docker0 (不计评分)"
   check_5_29="$id_5_29  - $desc_5_29"
   starttestjson "$id_5_29" "$desc_5_29"
 
@@ -1186,10 +1186,10 @@ check_5_29() {
   # We went through all the containers and found none in docker0 network
   if [ $fail -eq 0 ]; then
       pass "$check_5_29"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "INFO" "使用了docker0网络的容器" "$docker_network_containers"
+      resulttestjson "正常" "使用了docker0网络的容器" "$docker_network_containers"
       currentScore=$((currentScore + 0))
   fi
 }
@@ -1201,7 +1201,7 @@ check_5_30() {
   fi
 
   id_5_30="5.30"
-  desc_5_30="不共享主机的用户命名空间 (Scored)"
+  desc_5_30="不共享主机的用户命名空间 (计入评分)"
   check_5_30="$id_5_30  - $desc_5_30"
   starttestjson "$id_5_30" "$desc_5_30"
 
@@ -1226,10 +1226,10 @@ check_5_30() {
   # We went through all the containers and found none with host's user namespace shared
   if [ $fail -eq 0 ]; then
       pass "$check_5_30"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "共享了用户命名空间的容器" "$hostns_shared_containers"
+      resulttestjson "警告" "共享了用户命名空间的容器" "$hostns_shared_containers"
       currentScore=$((currentScore - 1))
   fi
 }
@@ -1241,7 +1241,7 @@ check_5_31() {
   fi
 
   id_5_31="5.31"
-  desc_5_31="任何容器内不能安装 docker 套接字 (Scored)"
+  desc_5_31="任何容器内不能安装 docker 套接字 (计入评分)"
   check_5_31="$id_5_31  - $desc_5_31"
   starttestjson "$id_5_31" "$desc_5_31"
 
@@ -1266,10 +1266,10 @@ check_5_31() {
   # We went through all the containers and found none with docker.sock shared
   if [ $fail -eq 0 ]; then
       pass "$check_5_31"
-      resulttestjson "PASS"
+      resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "WARN" "共享了Docker套接字的容器" "$docker_sock_containers"
+      resulttestjson "警告" "共享了Docker套接字的容器" "$docker_sock_containers"
       currentScore=$((currentScore - 1))
   fi
 }
