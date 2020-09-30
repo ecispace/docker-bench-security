@@ -1,5 +1,11 @@
 #!/bin/sh
 
+SUGGEST=建议
+INFO=信息
+PASS=通过
+WARN=警告
+NOTE=提示
+
 host_configuration() {
   check_1
   check_1_1

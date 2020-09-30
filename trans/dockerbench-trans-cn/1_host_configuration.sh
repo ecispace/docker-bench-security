@@ -27,6 +27,8 @@ check_1_1_1() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_1_1_1"
+
+  suggestjson "suggest" "check_1_1_1 JIan YI 建议1"
   resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }

@@ -11,6 +11,7 @@ else
   bldgrn='\033[1;32m'
   bldblu='\033[1;34m'
   bldylw='\033[1;33m' # Yellow
+  bld35='\033[1;35m' # Yellow
   txtrst='\033[0m'
 fi
 
@@ -30,6 +31,15 @@ info () {
     printf "%b\n" "${bldblu}[INFO]${txtrst} $1" | tee -a "$logger"
   else
     printf "%b\n" "${bldblu}[INFO]${txtrst} $1"  >> "$logger"
+  fi
+}
+
+suggest (){
+  if [ $standout = 1 ]
+  then
+    printf "%b\n" "${bld35}[INFO]${txtrst} $1" | tee -a "$logger"
+  else
+    printf "%b\n" "${bld35}[INFO]${txtrst} $1"  >> "$logger"
   fi
 }
 
@@ -76,6 +86,10 @@ endjson (){
 }
 
 logjson (){
+  printf "\n  \"%s\": \"%s\"," "$1" "$2" | tee -a "$logger.json" 2>/dev/null 1>&2
+}
+
+suggestjson (){
   printf "\n  \"%s\": \"%s\"," "$1" "$2" | tee -a "$logger.json" 2>/dev/null 1>&2
 }
 
