@@ -34,7 +34,7 @@ check_3_1() {
   else
     info "$check_3_1"
     info "     * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -64,7 +64,7 @@ check_3_2() {
   else
     info "$check_3_2"
     info "     * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -94,7 +94,7 @@ check_3_3() {
   else
     info "$check_3_3"
     info "     * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -122,7 +122,7 @@ check_3_4() {
   else
     info "$check_3_4"
     info "     * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -150,7 +150,7 @@ check_3_5() {
   else
     info "$check_3_5"
     info "     * 没有找到目录"
-    resulttestjson "正常" "没有找到目录"
+    resulttestjson "信息" "没有找到目录"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -178,7 +178,7 @@ check_3_6() {
   else
     info "$check_3_6"
     info "     * 没有找到目录"
-    resulttestjson "正常" "没有找到目录"
+    resulttestjson "信息" "没有找到目录"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -213,7 +213,7 @@ check_3_7() {
   else
     info "$check_3_7"
     info "     * 没有找到目录"
-    resulttestjson "正常" "没有找到目录"
+    resulttestjson "信息" "没有找到目录"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -248,7 +248,7 @@ check_3_8() {
   else
     info "$check_3_8"
     info "     * 没有找到目录"
-    resulttestjson "正常" "没有找到目录"
+    resulttestjson "信息" "没有找到目录"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -280,7 +280,7 @@ check_3_9() {
   else
     info "$check_3_9"
     info "     * No TLS CA certificate found"
-    resulttestjson "正常" "No TLS CA certificate found"
+    resulttestjson "信息" "No TLS CA certificate found"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -312,7 +312,7 @@ check_3_10() {
   else
     info "$check_3_10"
     info "      * 没找到TLS CA证书文件"
-    resulttestjson "正常" "没找到TLS CA证书文件"
+    resulttestjson "信息" "没找到TLS CA证书文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -344,7 +344,7 @@ check_3_11() {
   else
     info "$check_3_11"
     info "      * 没有找到TLS服务器证书文件"
-    resulttestjson "正常" "没有找到TLS服务器证书文件"
+    resulttestjson "信息" "没有找到TLS服务器证书文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -376,7 +376,7 @@ check_3_12() {
   else
     info "$check_3_12"
     info "      * 没有找到TLS服务器证书文件"
-    resulttestjson "正常" "没有找到TLS服务器证书文件"
+    resulttestjson "信息" "没有找到TLS服务器证书文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -408,7 +408,7 @@ check_3_13() {
   else
     info "$check_3_13"
     info "      * 没有找到TLS Key"
-    resulttestjson "正常" "没有找到TLS Key"
+    resulttestjson "信息" "没有找到TLS Key"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -440,7 +440,7 @@ check_3_14() {
   else
     info "$check_3_14"
     info "      * 没有找到TLS Key"
-    resulttestjson "正常" "没有找到TLS Key"
+    resulttestjson "信息" "没有找到TLS Key"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -468,7 +468,7 @@ check_3_15() {
   else
     info "$check_3_15"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -496,7 +496,7 @@ check_3_16() {
   else
     info "$check_3_16"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -524,7 +524,7 @@ check_3_17() {
   else
     info "$check_3_17"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -552,7 +552,7 @@ check_3_18() {
   else
     info "$check_3_18"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -580,7 +580,7 @@ check_3_19() {
   else
     info "$check_3_19"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -608,7 +608,7 @@ check_3_20() {
   else
     info "$check_3_20"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -636,7 +636,7 @@ check_3_21() {
   else
     info "$check_3_21"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -664,7 +664,7 @@ check_3_22() {
   else
     info "$check_3_22"
     info "      * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }

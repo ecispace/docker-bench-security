@@ -128,7 +128,7 @@ check_7_5() {
       currentScore=$((currentScore + 1))
     else
       info "$check_7_5"
-      resulttestjson "正常"
+      resulttestjson "信息"
       currentScore=$((currentScore + 0))
     fi
   else
@@ -197,7 +197,7 @@ check_7_8() {
       currentScore=$((currentScore + 1))
     else
       info "$check_7_8"
-      resulttestjson "正常"
+      resulttestjson "信息"
       currentScore=$((currentScore + 0))
     fi
   else
@@ -217,7 +217,7 @@ check_7_9() {
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then
     info "$check_7_9"
-    resulttestjson "正常"
+    resulttestjson "信息"
     currentScore=$((currentScore + 0))
   else
     pass "$check_7_9 (集群模式未启用d)"
@@ -236,7 +236,7 @@ check_7_10() {
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then
     info "$check_7_10"
-    resulttestjson "正常"
+    resulttestjson "信息"
     currentScore=$((currentScore + 0))
   else
     pass "$check_7_10 (集群模式未启用)"

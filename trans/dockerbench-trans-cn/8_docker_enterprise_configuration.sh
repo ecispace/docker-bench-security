@@ -42,7 +42,7 @@ check_8_1_1() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_1"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -59,7 +59,7 @@ check_8_1_2() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_2"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -76,7 +76,7 @@ check_8_1_3() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_3"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -93,7 +93,7 @@ check_8_1_4() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_4"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -111,7 +111,7 @@ check_8_1_5() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_5"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -128,7 +128,7 @@ check_8_1_6() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_6"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -145,7 +145,7 @@ check_8_1_7() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_1_7"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -173,7 +173,7 @@ check_8_2_1() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_8_2_1"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 

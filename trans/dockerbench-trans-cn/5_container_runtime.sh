@@ -758,7 +758,7 @@ check_5_17() {
       resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "正常" "容器中有直接暴露的主机设备" "$hostdev_exposed_containers"
+      resulttestjson "信息" "容器中有直接暴露的主机设备" "$hostdev_exposed_containers"
       currentScore=$((currentScore + 0))
   fi
 }
@@ -800,7 +800,7 @@ check_5_18() {
       resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "正常" "容器没有设置ulimit默认值" "$no_ulimit_containers"
+      resulttestjson "信息" "容器没有设置ulimit默认值" "$no_ulimit_containers"
       currentScore=$((currentScore + 0))
   fi
 }
@@ -1095,7 +1095,7 @@ check_5_27() {
 
   totalChecks=$((totalChecks + 1))
   info "$check_5_27"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -1189,7 +1189,7 @@ check_5_29() {
       resulttestjson "通过"
       currentScore=$((currentScore + 1))
   else
-      resulttestjson "正常" "使用了docker0网络的容器" "$docker_network_containers"
+      resulttestjson "信息" "使用了docker0网络的容器" "$docker_network_containers"
       currentScore=$((currentScore + 0))
   fi
 }

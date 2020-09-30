@@ -32,7 +32,7 @@ check_6_1() {
   if [ "$active_images" -lt "$((images / 2))" ]; then
     info "     * 仅有 $active_images 个镜像是活跃的，总共使用$images 个镜像"
   fi
-  resulttestjson "正常" "$active_images 活跃的/$images 使用中的"
+  resulttestjson "信息" "$active_images 活跃的/$images 使用中的"
   currentScore=$((currentScore + 0))
 }
 
@@ -50,11 +50,11 @@ check_6_2() {
   if [ "$diff" -gt 25 ]; then
     info "$check_6_2"
     info "     * 共有 $total_containers 个容器, 只有 $running_containers 个运行中"
-    resulttestjson "正常" "$total_containers 容器总数/$running_containers 运行中的"
+    resulttestjson "信息" "$total_containers 容器总数/$running_containers 运行中的"
   else
     info "$check_6_2"
     info "     * 共有 $total_containers 个容器, $running_containers 个运行中"
-    resulttestjson "正常" "$total_containers 容器总数/$running_containers 运行中的"
+    resulttestjson "信息" "$total_containers 容器总数/$running_containers 运行中的"
   fi
   currentScore=$((currentScore + 0))
 }

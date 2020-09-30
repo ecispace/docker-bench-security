@@ -177,8 +177,8 @@ check_2_6() {
     info "$check_2_6"
     #info "     * Docker daemon not listening on TCP"
     info "     * Docker守护进程未监听TCP"
-    #resulttestjson "正常" "Docker daemon not listening on TCP"
-    resulttestjson "正常" "Docker守护进程未监听TCP"
+    #resulttestjson "信息" "Docker daemon not listening on TCP"
+    resulttestjson "信息" "Docker守护进程未监听TCP"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -203,8 +203,8 @@ check_2_7() {
     info "$check_2_7"
     #info "     * Default ulimit doesn't appear to be set"
     info "     * 默认的ulimit 似乎没有设置"
-    #resulttestjson "正常" "Default ulimit doesn't appear to be set"
-    resulttestjson "正常" "默认的ulimit 似乎没有设置"
+    #resulttestjson "信息" "Default ulimit doesn't appear to be set"
+    resulttestjson "信息" "默认的ulimit 似乎没有设置"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -392,7 +392,7 @@ check_2_15() {
     currentScore=$((currentScore + 1))
   else
     info "$check_2_15"
-    resulttestjson "正常"
+    resulttestjson "信息"
     currentScore=$((currentScore + 0))
   fi
 }

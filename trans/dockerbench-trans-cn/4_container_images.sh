@@ -22,7 +22,7 @@ check_4_1() {
   if [ -z "$containers" ]; then
     info "$check_4_1"
     info "     * 没有运行中的容器"
-    resulttestjson "正常" "没有运行中的容器"
+    resulttestjson "信息" "没有运行中的容器"
     currentScore=$((currentScore + 0))
   else
     # We have some containers running, set failure flag to 0. Check for Users.
@@ -180,7 +180,7 @@ check_4_7() {
     resulttestjson "通过"
     currentScore=$((currentScore + 0))
   else
-    resulttestjson "正常" "发现更新指令" "$update_images"
+    resulttestjson "信息" "发现更新指令" "$update_images"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -228,7 +228,7 @@ check_4_9() {
     resulttestjson "通过"
     currentScore=$((currentScore + 0))
   else
-    resulttestjson "正常" "使用了ADD的镜像" "$add_images"
+    resulttestjson "信息" "使用了ADD的镜像" "$add_images"
   fi
 }
 

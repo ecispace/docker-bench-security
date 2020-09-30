@@ -50,7 +50,7 @@ check_c_2() {
     desc_c_2="$desc_c_2 (已过时的)"
     check_c_2="$id_c_2  - $desc_c_2"
     info "$check_c_2"
-    resulttestjson "正常"
+    resulttestjson "信息"
   fi
 }
 

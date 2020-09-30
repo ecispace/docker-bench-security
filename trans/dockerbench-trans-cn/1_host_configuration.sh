@@ -15,6 +15,7 @@ check_1_1() {
   desc_1_1="通用配置"
   check_1_1="$id_1_1 - $desc_1_1"
   info "$check_1_1"
+
 }
 
 # 1.1.1
@@ -26,7 +27,7 @@ check_1_1_1() {
 
   totalChecks=$((totalChecks + 1))
   note "$check_1_1_1"
-  resulttestjson "正常"
+  resulttestjson "信息"
   currentScore=$((currentScore + 0))
 }
 
@@ -48,7 +49,7 @@ check_1_1_2() {
     info "       * 使用的版本 $docker_version, 确认Docker更新到所需版本"
     #info "       * Your operating system vendor may provide support and security maintenance for Docker"
     info "       * 你的操作系统提供商可能提供docker的支持以及安全维护"
-    resulttestjson "正常" "Using $docker_version"
+    resulttestjson "信息" "Using $docker_version"
     currentScore=$((currentScore + 0))
   else
     pass "$check_1_1_2"
@@ -106,7 +107,7 @@ check_1_2_2() {
   for u in $docker_users; do
     info "       * $u"
   done
-  resulttestjson "正常" "users" "$docker_users"
+  resulttestjson "信息" "users" "$docker_users"
   currentScore=$((currentScore + 0))
 }
 
@@ -172,7 +173,7 @@ check_1_2_4() {
   else
     info "$check_1_2_4"
     info "       * 没有找到目录"
-    resulttestjson "正常" "没有找到目录"
+    resulttestjson "信息" "没有找到目录"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -209,7 +210,7 @@ check_1_2_5() {
   else
     info "$check_1_2_5"
     info "       * 没有找到目录"
-    resulttestjson "正常" "没有找到目录"
+    resulttestjson "信息" "没有找到目录"
     currentScore=$((currentScore + 0))
 fi
 }
@@ -246,7 +247,7 @@ check_1_2_6() {
   else
     info "$check_1_2_6"
     info "       * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -283,7 +284,7 @@ check_1_2_7() {
   else
     info "$check_1_2_7"
     info "       * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -320,7 +321,7 @@ check_1_2_8() {
   else
     info "$check_1_2_8"
     info "       * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -357,7 +358,7 @@ check_1_2_9() {
   else
     info "$check_1_2_9"
     info "       * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -394,7 +395,7 @@ check_1_2_10() {
   else
     info "$check_1_2_10"
     info "        * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -431,7 +432,7 @@ check_1_2_11() {
   else
     info "$check_1_2_11"
     info "        * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
@@ -468,7 +469,7 @@ check_1_2_12() {
   else
     info "$check_1_2_12"
     info "        * 没有找到文件"
-    resulttestjson "正常" "没有找到文件"
+    resulttestjson "信息" "没有找到文件"
     currentScore=$((currentScore + 0))
   fi
 }
