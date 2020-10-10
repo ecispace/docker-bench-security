@@ -16,6 +16,8 @@ check_7_1() {
   check_7_1="$id_7_1  - $desc_7_1"
   starttestjson "$id_7_1" "$desc_7_1"
 
+  infojson "suggest" "如果在系统出错时启用了集群模式，请停用。"
+
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:*\sinactive\s*" >/dev/null 2>&1; then
     pass "$check_7_1"
@@ -34,6 +36,8 @@ check_7_2() {
   desc_7_2="在群集中最小数量创建管理器节点 (计入评分)"
   check_7_2="$id_7_2  - $desc_7_2"
   starttestjson "$id_7_2" "$desc_7_2"
+
+  infojson "suggest" "如果配置的管理节点数量过多，则可以使用以下命令将超出部分作为节点降级： docker node demote <ID>。"
 
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:*\sactive\s*" >/dev/null 2>&1; then
@@ -61,6 +65,8 @@ check_7_3() {
   check_7_3="$id_7_3  - $desc_7_3"
   starttestjson "$id_7_3" "$desc_7_3"
 
+  infojson "suggest" "对此操作需要重新初始化集群，以指定--listen-addr参数的特定接口。"
+
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:*\sactive\s*" >/dev/null 2>&1; then
     $netbin -lnt | grep -e '\[::]:2377 ' -e ':::2377' -e '*:2377 ' -e ' 0\.0\.0\.0:2377 ' >/dev/null 2>&1
@@ -86,6 +92,8 @@ check_7_4() {
   desc_7_4="数据在的不同节点上进行加密 (计入评分)"
   check_7_4="$id_7_4  - $desc_7_4"
   starttestjson "$id_7_4" "$desc_7_4"
+
+  infojson "suggest" "使用--opt加密标志创建网络。"
 
   totalChecks=$((totalChecks + 1))
   fail=0
@@ -120,6 +128,8 @@ check_7_5() {
   check_7_5="$id_7_5  - $desc_7_5"
   starttestjson "$id_7_5" "$desc_7_5"
 
+  infojson "suggest" "按照docker秘密管理方法，并用它来有效管理秘密。"
+
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then
     if [ "$(docker secret ls -q | wc -l)" -ge 1 ]; then
@@ -144,6 +154,9 @@ check_7_6() {
   desc_7_6="swarm manager 在自动锁定模式下运行 (计入评分)"
   check_7_6="$id_7_6  - $desc_7_6"
   starttestjson "$id_7_6" "$desc_7_6"
+
+  infojson "suggest" "如果正在初始化swarm，使用下面的命令。 docker swarm init --autolock 如果想在现有的swarm manager节点上设置--autolock，请使用以下命令。 Docker swarm update --autolock。"
+  infojson "notice" "在自动锁定模式下的群体不会从重新启动恢复，需用户手动干预以输入解锁密钥。 在某些部署中，这可能不是很方便。"
 
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then
@@ -170,6 +183,8 @@ check_7_7() {
   check_7_7="$id_7_7  - $desc_7_7"
   starttestjson "$id_7_7" "$desc_7_7"
 
+  infojson "suggest" "运行以下命令来更换。 Docker swarm unlock-key --rotate 此外，为了便于审计，维护密钥轮换记录并确保为密钥轮换符合规定周期。"
+
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then
     note "$check_7_7"
@@ -188,6 +203,8 @@ check_7_8() {
   desc_7_8="节点证书适当轮换 (不计评分)"
   check_7_8="$id_7_8  - $desc_7_8"
   starttestjson "$id_7_8" "$desc_7_8"
+
+  infojson "suggest" "运行以下命令来设置所需的到期时间。 例如，docker swarm update--cert-expiry 48h。"
 
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then
@@ -214,6 +231,8 @@ check_7_9() {
   check_7_9="$id_7_9  - $desc_7_9"
   starttestjson "$id_7_9" "$desc_7_9"
 
+  infojson "suggest" "运行以下命令来更换证书。 Docker swarm ca - rotate。"
+
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then
     info "$check_7_9"
@@ -232,6 +251,9 @@ check_7_10() {
   desc_7_10="管理平面流量分流自数据平面流量 (不计评分)"
   check_7_10="$id_7_10  - $desc_7_10"
   starttestjson "$id_7_10" "$desc_7_10"
+
+  infojson "suggest" "分别用管理数据系统和业务数据系统的专用接口初始化Swarm。 例如，docker swarm init --advertise-addr = 192.168.0.1 --data-path-addr = 17.1.0.3"
+  infojson "notice" "需要每个节点2个网络接口卡。"
 
   totalChecks=$((totalChecks + 1))
   if docker info 2>/dev/null | grep -e "Swarm:\s*active\s*" >/dev/null 2>&1; then

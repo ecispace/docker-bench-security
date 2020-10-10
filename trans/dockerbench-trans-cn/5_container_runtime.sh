@@ -33,6 +33,9 @@ check_5_1() {
   check_5_1="$id_5_1  - $desc_5_1"
   starttestjson "$id_5_1" "$desc_5_1"
 
+  infojson "suggest" "如果AppArmor适用于你的Linux操作系统，可能需要遵循以下步骤：1.验证是否安装了AppArmor。 如果没有，请安装。2.为Docker容器创建或导入AppArmor配置文件。3.将此配置文件置于强制模式。4.使用自定义的AppArmor配置文件启动Docker容器。 例如，docker run --interactive --tty --security-opt =“apparmor：PROFILENAME”centos/bin/bash或者，可以保留Docker的默认apparmor配置文件。"
+  infojson "notice" "AppArmor配置文件中定义的一组操作限制。 如果配置错误，容器可能无法完成工作。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -75,6 +78,9 @@ check_5_2() {
   check_5_2="$id_5_2  - $desc_5_2"
   starttestjson "$id_5_2" "$desc_5_2"
 
+  infojson "suggest" "如果SELinux适用于你的Linux操作系统，请使用它。 可能需要遵循以下步骤： 1.设置SELinux状态。 2.设置SELinux策略。 3.为Docker容器创建或导入SELinux策略模板。 4.启用SELinux的守护程序模式下启动Docker。 例如，docker daemon --selinux-enabled 5.使用安全选项启动Docker容器。 例如，docker run--interactive --tty --security-opt label = level：TopSecret centos/bin/bash。"
+  infojson "notice" "selinux配置文件中定义的一组操作限制。 如果配置错误，容器可能无法完成工作。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -116,6 +122,9 @@ check_5_3() {
   desc_5_3="linux 内核功能在容器内受限 (计入评分)"
   check_5_3="$id_5_3  - $desc_5_3"
   starttestjson "$id_5_3" "$desc_5_3"
+
+  infojson "suggest" "执行以下命令添加所需的功能： $> docker run --cap-add = {“Capability 1”，“Capability 2”} 例如，docker run --interactive --tty --cap-add = {“NET_ADMIN”，“SYS_ADMIN”} centos：latest /bin/bash 执行以下命令删除不需要的功能： $> docker run --cap-drop = {“能力1”，“能力2”} 例如，docker run --interactive --tty --cap-drop = {“SETUID”，“SETGID”} centos：latest /bin/bash 或者， 您可以选择删除所有功能并只添加所需功能： $> docker run --cap-drop = all --cap-add = {“Capability 1”，“Capability 2”} 例如，docker run --interactive --tty --cap-drop = all --cap-add = {“NET_ADMIN”，“SYS_ADMIN”} centos：latest /bin/bash。"
+  infojson "notice" "基于添加或删除的Linux内核功能，容器中功能会受到限制。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -162,6 +171,9 @@ check_5_4() {
   check_5_4="$id_5_4  - $desc_5_4"
   starttestjson "$id_5_4" "$desc_5_4"
 
+  infojson "suggest" "不要运行带有--privileged标志的容器。 例如，不要启动如下容器：docker run --interactive --tty --privileged centos/bin/bash。"
+  infojson "notice" "除默认值之外的Linux内核功能将无法在容器内使用。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -203,6 +215,8 @@ check_5_5() {
   desc_5_5="敏感的主机系统目录未挂载在容器上 (计入评分)"
   check_5_5="$id_5_5  - $desc_5_5"
   starttestjson "$id_5_5" "$desc_5_5"
+
+  infojson "suggest" "不要将主机敏感目录挂载在容器上，尤其是在读写模式下。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -266,6 +280,8 @@ check_5_6() {
   check_5_6="$id_5_6  - $desc_5_6"
   starttestjson "$id_5_6" "$desc_5_6"
 
+  infojson "suggest" "从容器中卸载SSH服务器，并使用nsenter或其他任何命令（如docker exec或docker attach）与容器实例进行交互。 docker exec --interactive --tty $ INSTANCE_ID sh OR docker attach $INSTANCE_ID。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -323,6 +339,8 @@ check_5_7() {
   check_5_7="$id_5_7  - $desc_5_7"
   starttestjson "$id_5_7" "$desc_5_7"
 
+  infojson "suggest" "启动容器时，不要将容器端口映射到特权主机端口。 另外，确保没有容器在Docker文件中特权端口映射声明。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -369,6 +387,8 @@ check_5_8() {
   check_5_8="$id_5_8  - $desc_5_8"
   starttestjson "$id_5_8" "$desc_5_8"
 
+  infojson "suggest" "修复容器镜像的Dockerfile，以便仅通过容器化应用程序公开所需的端口。 也可以通过在启动容器时不使用-P（UPPERCASE）或--publish-all标志来完全忽略Dockerfile中定义的端口列表。 使用-p（小写）或--publish标志来明确定义特定容器实例所需的端口。 例如，docker run --interactive --tty --publish 5000 - publish 5001 - publish 5002 centos/bin/bash。"
+
   totalChecks=$((totalChecks + 1))
   note "$check_5_8"
   resulttestjson "提示"
@@ -385,6 +405,8 @@ check_5_9() {
   desc_5_9="不共享主机的网络命名空间 (计入评分)"
   check_5_9="$id_5_9  - $desc_5_9"
   starttestjson "$id_5_9" "$desc_5_9"
+
+  infojson "suggest" "启动容器时不要通过--net = host选项。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -427,6 +449,9 @@ check_5_10() {
   desc_5_10="确保容器的内存使用合理 (计入评分)"
   check_5_10="$id_5_10  - $desc_5_10"
   starttestjson "$id_5_10" "$desc_5_10"
+
+  infojson "suggest" "建议使用--memory参数运行容器。 例如，可以运行一个容器如下： docker run --interactive --tty --memory 256m centos/bin/bash 在上面的示例中，容器启动时的内存限制为256 MB。 值得注意的是，如果存在内存限制，下面命令的输出将以科学计数形式返回值。 docker inspect --format ={{。Config.Memory}}7c5a2d4c7fe0 例如，如果上述容器实例的内存限制设置为256 MB，则上述命令的输出将为2.68435456e + 08而不是256m。 应该使用科学计算器或编程方法来转换此值。"
+  infojson "notice" "如果您有设置适当的限制，容器可能将无法使用。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -474,6 +499,9 @@ check_5_11() {
   check_5_11="$id_5_11  - $desc_5_11"
   starttestjson "$id_5_11" "$desc_5_11"
 
+  infojson "suggest" "管理容器之间的CPU份额。为此，请使用--cpu-shares参数启动容器。 例如，可以运行一个容器，如下所示： docker run --interactive --tty --cpu-shares 512 centos/bin/bash 在上面的示例中，容器以其他容器使用的50％的CPU份额启动。因此，如果另一个容器的CPU份额为80％，则此容器的CPU份额为40％。 注意：默认情况下，每个新容器将拥有1024个CPU份额。但是，如果运行审计部分中提到的命令，则此值显示为0。 或者使用如下方法： 1.进入/sys/fs/cgroup/cpu/system.slice/目录。 2.使用docker ps检查容器实例ID。 3.在上面的目录中（在步骤1中），将有一个名称为docker- <Instance ID> .scope的目录。例如，docker-4acae729e8659c6be696ee35b2237cc1fe4edd2672e9186434c5116e1a6fbed6.scope。进入此目录。 4.可以找到一个名为cpu.shares的文件。执行cat cpu.shares。可以看到CPU的份额值。因此，在docker run命令中没有使用-c或--cpu-shares参数配置CPU共享，该文件的值为1024。 如果我们将一个容器的CPU份额设置为512，则与其他容器相比，它将获得一半的CPU时间。因此，以1024作为100％，然后快速计算数据以得出您应为各个CPU份额设置的数字。例如，如果您想设置50％，则使用512;如果您想设置25％，则使用256。"
+  infojson "notice" "如果没有设置适当的CPU共享，容器进程可能会不能执行。 但主机上的CPU资源是空闲的，CPU共享不会对容器可能使用的CPU造成任何限制。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -520,6 +548,9 @@ check_5_12() {
   check_5_12="$id_5_12  - $desc_5_12"
   starttestjson "$id_5_12" "$desc_5_12"
 
+  infojson "suggest" "在容器的运行时添加一个只读标志以强制容器的根文件系统以只读方式装入。 docker run <Run arguments> - read-only <Container Image Name or ID> <Command> 在容器的运行时启用只读选项，包括但不限于如下： 1.使用--tmpfs选项为非持久数据写入临时文件系统。 docker run --interactive --tty --read-only --tmpfs"/run"--tmpfs"/tmp"centos/bin/bash 2.启用Docker rw在容器的运行时载入，以便将容器数据直接保存在Docker主机文件系统上。  docker run --interactive --tty --read-only -v /opt/app/data/run/app/data：rw centos/bin/bash 3.使用Docker共享存储卷插件来存储Docker数据卷以保留容器数据。 docker volume create -d convoy --opt o=size=20GB my-named-volume docker run --interactive --tty --read-only -v my-named-volume：/run/app/data centos/bin/bash 4.在容器运行期间，将容器数据传输到容器外部，以便保持容器数据。包括托管数据库，网络文件共享和API。"
+  infojson "notice" "如果未定义数据写入策略，则在容器运行时启用--read-only可能会破坏某些容器软件包。 定义容器的数据应该在运行时保持不变，以确定要使用哪个建议过程。例： ·启用--tmpfs将临时文件写入到/tmp ·使用Docker共享数据卷进行持久数据写入"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -561,6 +592,8 @@ check_5_13() {
   desc_5_13="确保进入容器的流量绑定到特定的主机接口 (计入评分)"
   check_5_13="$id_5_13  - $desc_5_13"
   starttestjson "$id_5_13" "$desc_5_13"
+
+  infojson "suggest" "将容器端口绑定到所需主机端口上的特定主机接口。 例如，docker run--detach --publish 10.2.3.4:49153:80 nginx 在上面的示例中，容器端口80绑定到49153上的主机端口，并且仅接受来自10.2.3.4外部接口的传入连接。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -604,6 +637,9 @@ check_5_14() {
   check_5_14="$id_5_14  - $desc_5_14"
   starttestjson "$id_5_14" "$desc_5_14"
 
+  infojson "suggest" "如果一个容器需要自己重新启动，可以如下设置： docker run --detach --restart = on-failure:5 nginx。"
+  infojson "notice" "容器只会尝试重新启动5次。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -645,6 +681,9 @@ check_5_15() {
   desc_5_15="确保主机的进程命名空间不共享 (计入评分)"
   check_5_15="$id_5_15  - $desc_5_15"
   starttestjson "$id_5_15" "$desc_5_15"
+
+  infojson "suggest" "不要使用'--pid = host'参数启动容器。 例如，不要启动一个容器，如下所示： docker run --interactive --tty --pid = host centos/bin/bash。"
+  infojson "notice" "注意：容器进程无法看到主机系统上的进程。 在某些情况下，可能需要容器共享主机的进程命名空间。 例如，可以使用像strace或gdb这样的调试工具构建容器，在调试容器中的进程时要使用这些工具。 如必要，最好只能使用“-p”参数共享必须的主机进程。 例如，docker run --pid = host rhel7 strace -p 1234。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -688,6 +727,9 @@ check_5_16() {
   check_5_16="$id_5_16  - $desc_5_16"
   starttestjson "$id_5_16" "$desc_5_16"
 
+  infojson "suggest" "不要使用'--ipc = host'参数启动容器。 例如，不要启动如下容器：docker run --interactive --tty --ipc = host centos/bin/bash。"
+  infojson "notice" "注意：共享内存段用于加速进程间通信。 它通常被高性能应用程序使用。 如果这些应用程序被容器化为多个容器，则可能需要共享容器的IPC名称空间以实现高性能。 在这种情况下，您仍然应该共享容器特定的IPC 命名空间而不是整个主机IPC命名空间。 可以将容器的IPC名称空间与另一个容器共享，如下所示： 例如，docker run --interactive --tty --ipc = container：e3a7a1a97c58 centos/bin/bash。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -729,6 +771,9 @@ check_5_17() {
   desc_5_17="主机设备不直接共享给容器 (不计评分)"
   check_5_17="$id_5_17  - $desc_5_17"
   starttestjson "$id_5_17" "$desc_5_17"
+
+  infojson "suggest" "不要将主机设备直接共享于容器。 如果必须将主机设备共享给容器，请使用正确的一组权限： 例如，不要启动一个容器，如下所示： docker run --interactive --tty --device=/dev/tty0:/dev/tty0：rwm --device=/dev/temp_sda:/dev/temp_sda：rwm centos bash 例如，以正确的权限共享主机设备： docker run --interactive --tty --device=/dev/tty0:/dev/tty0：rw --device=/dev/temp_sda:/dev/temp_sda：r centos bash。"
+  infojson "notice" "将无法直接在容器内使用主机设备。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -774,6 +819,9 @@ check_5_18() {
   check_5_18="$id_5_18  - $desc_5_18"
   starttestjson "$id_5_18" "$desc_5_18"
 
+  infojson "suggest" "如果需要，覆盖默认的ulimit设置。 例如，要覆盖默认的ulimit设置，请启动一个容器，如下所示： docker run --ulimit nofile = 1024：1024 --interactive --tty centos/bin/bash。"
+  infojson "notice" "如果ulimits未正确设置，则可能无法实现所需的资源控制，甚至导致系统无法使用。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -816,6 +864,8 @@ check_5_19() {
   check_5_19="$id_5_19  - $desc_5_19"
   starttestjson "$id_5_19" "$desc_5_19"
 
+  infojson "suggest" "不建议以共享模式传播中安装卷。 例如，不要启动容器，如下所示：docker run <Run arguments> --volume=/hostPath:/containerPath:shared <Container Image Name or ID> <Command>。。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -856,6 +906,8 @@ check_5_20() {
   desc_5_20="设置主机的 UTS 命令空间不共享 (计入评分)"
   check_5_20="$id_5_20  - $desc_5_20"
   starttestjson "$id_5_20" "$desc_5_20"
+
+  infojson "suggest" "不要使用--uts = host参数启动容器。 例如，不要启动如下容器：docker run --rm --interactive --tty --uts = host rhel7.2。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -899,6 +951,9 @@ check_5_21() {
   check_5_21="$id_5_21  - $desc_5_21"
   starttestjson "$id_5_21" "$desc_5_21"
 
+  infojson "suggest" "默认情况下，seccomp配置文件处于启用状态。除非您要修改和使用修改后的seccomp配置文件，否则您无需执行任何操作。"
+  infojson "notice" "注意：在Docker 1.10及更高版本中，不管是否将-cap-add参数传递给容器，默认的seccomp配置文件都会阻止系统调用。在这种情况下，您应该创建自己的自定义seccomp配置文件。您还可以通过在docker run上传递--securityopt=seccomp:unconfined来禁用默认的seccomp配置文件。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -940,6 +995,9 @@ check_5_22() {
   check_5_22="$id_5_22  - $desc_5_22"
   starttestjson "$id_5_22" "$desc_5_22"
 
+  infojson "suggest" "在docker exec命令中不要使用--privileged选项。"
+  infojson "notice" "如果您需要容器内的增强功能，则只运行具有所需功能的容器。"
+
   totalChecks=$((totalChecks + 1))
   note "$check_5_22"
   resulttestjson "提示"
@@ -957,6 +1015,8 @@ check_5_23() {
   check_5_23="$id_5_23  - $desc_5_23"
   starttestjson "$id_5_23" "$desc_5_23"
 
+  infojson "suggest" "在docker exec命令中不要使用--user选项。"
+
   totalChecks=$((totalChecks + 1))
   note "$check_5_23"
   resulttestjson "提示"
@@ -973,6 +1033,8 @@ check_5_24() {
   desc_5_24="确保 cgroug 安全使用 (计入评分)"
   check_5_24="$id_5_24  - $desc_5_24"
   starttestjson "$id_5_24" "$desc_5_24"
+
+  infojson "suggest" "如无必须，不要使用 --cgroup-parent 选项在docker运行。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -1015,6 +1077,9 @@ check_5_25() {
   check_5_25="$id_5_25  - $desc_5_25"
   starttestjson "$id_5_25" "$desc_5_25"
 
+  infojson "suggest" "例如，应该按如下启动容器：docker run --rm -it --security-opt = no-new-privileges ubuntu bash。"
+  infojson "notice" "no_new_priv会阻止像SELinux这样的LSM变为不允许访问当前进程的进程标签。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -1055,6 +1120,8 @@ check_5_26() {
   check_5_26="$id_5_26  - $desc_5_26"
   starttestjson "$id_5_26" "$desc_5_26"
 
+  infojson "suggest" "使用--health-cmd和其他参数运行容器。 例如，docker run -d --health-cmd ='stat /etc/passwd || exit1'nginx。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -1093,6 +1160,8 @@ check_5_27() {
   check_5_27="$id_5_27  - $desc_5_27"
   starttestjson "$id_5_27" "$desc_5_27"
 
+  infojson "suggest" "使用正确的版本锁定机制（默认情况下分配的最新标签仍然不完善），避免提取缓存的旧版本。 版本固定机制也应用于基本镜像，软件包和整个镜像。 可以根据要求定制版本固定规则。"
+
   totalChecks=$((totalChecks + 1))
   info "$check_5_27"
   resulttestjson "信息"
@@ -1109,6 +1178,9 @@ check_5_28() {
   desc_5_28="限制使用 PID cgroup (计入评分)"
   check_5_28="$id_5_28  - $desc_5_28"
   starttestjson "$id_5_28" "$desc_5_28"
+
+  infojson "suggest" "在启动容器时，使用--pids-limit标志。例如，docker run -it -pids-limit 100 <Image_ID> 在上述示例中，允许在任何给定时间运行的进程数设置为100.在达到100个并发运行进程的限制之后，docker将限制任何新的进程创建。"
+  infojson "notice" "根据需要设置PID限制值。 不正确的值可能会使容器不能使用。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -1151,6 +1223,9 @@ check_5_29() {
   desc_5_29="不要使用 docker 的默认网桥 docker0 (不计评分)"
   check_5_29="$id_5_29  - $desc_5_29"
   starttestjson "$id_5_29" "$desc_5_29"
+
+  infojson "suggest" "遵循Docker文档并设置用户定义的网络。 运行定义的网络中的所有容器。"
+  infojson "notice" "必须管理用户定义的网络。"
 
   totalChecks=$((totalChecks + 1))
 
@@ -1205,6 +1280,8 @@ check_5_30() {
   check_5_30="$id_5_30  - $desc_5_30"
   starttestjson "$id_5_30" "$desc_5_30"
 
+  infojson "suggest" "不要在主机和容器之间共享用户名称空间。 例如，不要像下面那样运行容器： docker run --rm -it --userns = host ubuntu bash。"
+
   totalChecks=$((totalChecks + 1))
 
   fail=0
@@ -1244,6 +1321,8 @@ check_5_31() {
   desc_5_31="任何容器内不能安装 docker 套接字 (计入评分)"
   check_5_31="$id_5_31  - $desc_5_31"
   starttestjson "$id_5_31" "$desc_5_31"
+
+  infojson "suggest" "确保没有容器将docker.sock作为卷。"
 
   totalChecks=$((totalChecks + 1))
 

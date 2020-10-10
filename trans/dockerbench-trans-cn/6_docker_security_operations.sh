@@ -16,6 +16,8 @@ check_6_1() {
   check_6_1="$id_6_1  - $desc_6_1"
   starttestjson "$id_6_1" "$desc_6_1"
 
+  infojson "suggest" "保留您实际需要的一组镜像，并建立工作流程以从主机中删除陈旧的镜像。 此外，使用诸如按摘要的功能从镜像仓库中获取特定镜像。 可以按照以下步骤找出系统上未使用的镜像并删除它们。 步骤1通过执行以下命令列出当前实例化的所有镜像ID： docker images --quiet | xargs docker inspect --format'{{.Id}}：Image = {{.Config.Image}}' 步骤2：通过执行以下命令列出系统中存在的所有镜像：docker images 步骤3：比较步骤1和步骤2中填充的镜像ID列表，找出当前未实例化的镜像。 第4步：决定是否要保留当前未使用的镜像。 如果不通过执行以下命令删除它们：docker rmi $ IMAGE_ID。"
+
   totalChecks=$((totalChecks + 1))
   images=$(docker images -q | sort -u | wc -l | awk '{print $1}')
   active_images=0
@@ -42,6 +44,9 @@ check_6_2() {
   desc_6_2="避免容器泛滥 (不计评分)"
   check_6_2="$id_6_2  - $desc_6_2"
   starttestjson "$id_6_2" "$desc_6_2"
+
+  infojson "suggest" "定期检查每个主机的容器清单，并使用以下命令清理已停止的容器：docker container prune。"
+  infojson "notice" "如果你每个主机的容器数量太少，那么你可能没有充分利用你的主机资源。"
 
   totalChecks=$((totalChecks + 1))
   total_containers=$(docker info 2>/dev/null | grep "Containers" | awk '{print $2}')

@@ -89,7 +89,7 @@ logjson (){
   printf "\n  \"%s\": \"%s\"," "$1" "$2" | tee -a "$logger.json" 2>/dev/null 1>&2
 }
 
-suggestjson (){
+infojson (){
   printf "\n  \"%s\": \"%s\"," "$1" "$2" | tee -a "$logger.json" 2>/dev/null 1>&2
 }
 

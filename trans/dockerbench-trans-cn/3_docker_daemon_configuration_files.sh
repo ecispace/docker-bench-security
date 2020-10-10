@@ -16,6 +16,8 @@ check_3_1() {
   check_3_1="$id_3_1  - $desc_3_1"
   starttestjson "$id_3_1" "$desc_3_1"
 
+  infojson "suggest" "步骤1：找出文件位置：systemctl show -p FragmentPath docker.service步骤2：如果该文件不存在，则此建议不适用。 如果文件存在，请使用正确的文件路径执行以下命令，将文件的所有权和组所有权设置为“root”。 例如，chown root:root /usr/lib/systemd/system/docker.service。"
+
   totalChecks=$((totalChecks + 1))
   file="$(get_service_file docker.service)"
   if [ -f "$file" ]; then
@@ -45,6 +47,8 @@ check_3_2() {
   desc_3_2="设置docker.service文件权限为644或更多限制性 (计入评分)"
   check_3_2="$id_3_2  - $desc_3_2"
   starttestjson "$id_3_2" "$desc_3_2"
+
+  infojson "suggest" "步骤1：找出文件位置：systemctl show -p FragmentPath docker.service步骤2：如果该文件不存在，则此建议不适用。 如果文件存在，请使用正确的文件路径执行以下命令，将文件权限设置为'644'。 例如，chmod 644 /usr/lib/systemd/system/docker.service。"
 
   totalChecks=$((totalChecks + 1))
   file="$(get_service_file docker.service)"
@@ -76,6 +80,8 @@ check_3_3() {
   check_3_3="$id_3_3  - $desc_3_3"
   starttestjson "$id_3_3" "$desc_3_3"
 
+  infojson "suggest" "步骤1：找出文件位置：systemctl show -p FragmentPath docker.socket。步骤2：如果该文件不存在，则此建议不适用。 如果文件存在，请使用正确的文件路径执行以下命令，将文件的所有权和组所有权设置为“root”。例如，chown root：root /usr/lib/systemd/system/docker.socket。"
+
   totalChecks=$((totalChecks + 1))
   file="$(get_service_file docker.socket)"
   if [ -f "$file" ]; then
@@ -106,6 +112,8 @@ check_3_4() {
   check_3_4="$id_3_4  - $desc_3_4"
   starttestjson "$id_3_4" "$desc_3_4"
 
+  infojson "suggest" "步骤1：找出文件位置：systemctl show -p FragmentPath docker.socket 步骤2：如果该文件不存在，则此建议不适用。 如果文件存在，请使用 正确的文件路径执行以下命令，将文件权限设置为644。例如，chmod 644 /usr/lib/systemd/system/docker.socket。"
+
   totalChecks=$((totalChecks + 1))
   file="$(get_service_file docker.socket)"
   if [ -f "$file" ]; then
@@ -134,6 +142,8 @@ check_3_5() {
   check_3_5="$id_3_5  - $desc_3_5"
   starttestjson "$id_3_5" "$desc_3_5"
 
+  infojson "suggest" "chown root：root /etc/docker这将将目录的所有权和组所有权设置为“root”。"
+
   totalChecks=$((totalChecks + 1))
   directory="/etc/docker"
   if [ -d "$directory" ]; then
@@ -158,9 +168,11 @@ check_3_5() {
 # 3.6
 check_3_6() {
   id_3_6="3.6"
-  desc_3_6="设置/etc/docker目录权限为755或更多限制性 (计入评分)"
+  desc_3_6="chmod 755 /etc/docker这将把目录的权限设置为755。"
   check_3_6="$id_3_6  - $desc_3_6"
   starttestjson "$id_3_6" "$desc_3_6"
+
+  infojson "suggest" "运行Docker守护进程如下：dockerd --no-new-privileges。"
 
   totalChecks=$((totalChecks + 1))
   directory="/etc/docker"
@@ -189,6 +201,8 @@ check_3_7() {
   desc_3_7="设置仓库证书文件所有权为root:root (计入评分)"
   check_3_7="$id_3_7  - $desc_3_7"
   starttestjson "$id_3_7" "$desc_3_7"
+
+  infojson "suggest" "chown root：root /etc/docker/certs.d/<registry-name>/*这将将镜像仓库证书文件的所有权和组所有权设置为“root”。"
 
   totalChecks=$((totalChecks + 1))
   directory="/etc/docker/certs.d/"
@@ -225,6 +239,8 @@ check_3_8() {
   check_3_8="$id_3_8  - $desc_3_8"
   starttestjson "$id_3_8" "$desc_3_8"
 
+  infojson "suggest" "“chmod 444 /etc/docker/certs.d/<registry-name>/*这会将镜像仓库证书文件的权限设置为444。"
+
   totalChecks=$((totalChecks + 1))
   directory="/etc/docker/certs.d/"
   if [ -d "$directory" ]; then
@@ -260,6 +276,8 @@ check_3_9() {
   check_3_9="$id_3_9  - $desc_3_9"
   starttestjson "$id_3_9" "$desc_3_9"
 
+  infojson "suggest" "chown root：root <路径到TLS CA证书文件>这将TLS CA证书文件的所有权和组所有权设置为“root”。"
+
   totalChecks=$((totalChecks + 1))
   if [ -n "$(get_docker_configuration_file_args 'tlscacert')" ]; then
     tlscacert=$(get_docker_configuration_file_args 'tlscacert')
@@ -291,6 +309,8 @@ check_3_10() {
   desc_3_10="设置TLS CA证书文件权限为444或更多限制性 (计入评分)"
   check_3_10="$id_3_10  - $desc_3_10"
   starttestjson "$id_3_10" "$desc_3_10"
+
+  infojson "suggest" "chmod 444 <路径到TLS CA证书文件>这将把TLS CA文件的文件权限设置为444。"
 
   totalChecks=$((totalChecks + 1))
   if [ -n "$(get_docker_configuration_file_args 'tlscacert')" ]; then
@@ -324,6 +344,8 @@ check_3_11() {
   check_3_11="$id_3_11  - $desc_3_11"
   starttestjson "$id_3_11" "$desc_3_11"
 
+  infojson "suggest" "“chown root:root <路径到Docker服务器证书文件>这将Docker服务器证书文件的所有权和组所有权设置为“root”。"
+
   totalChecks=$((totalChecks + 1))
   if [ -n "$(get_docker_configuration_file_args 'tlscert')" ]; then
     tlscert=$(get_docker_configuration_file_args 'tlscert')
@@ -355,6 +377,8 @@ check_3_12() {
   desc_3_12="设置docker服务器证书文件权限为444或更多限制 (计入评分)"
   check_3_12="$id_3_12  - $desc_3_12"
   starttestjson "$id_3_12" "$desc_3_12"
+
+  infojson "suggest" "chmod 444 <路径到Docker服务器证书文件>这将把Docker服务器文件的文件权限设置为444。"
 
   totalChecks=$((totalChecks + 1))
   if [ -n "$(get_docker_configuration_file_args 'tlscert')" ]; then
@@ -388,6 +412,8 @@ check_3_13() {
   check_3_13="$id_3_13  - $desc_3_13"
   starttestjson "$id_3_13" "$desc_3_13"
 
+  infojson "suggest" "chown root:root <路径到Docker服务器证书密钥文件>这将将Docker服务器证书密钥文件的所有权和组所有权设置为“root”。"
+
   totalChecks=$((totalChecks + 1))
   if [ -n "$(get_docker_configuration_file_args 'tlskey')" ]; then
     tlskey=$(get_docker_configuration_file_args 'tlskey')
@@ -419,6 +445,8 @@ check_3_14() {
   desc_3_14="设置docker服务器证书密钥文件权限为400 (计入评分)"
   check_3_14="$id_3_14  - $desc_3_14"
   starttestjson "$id_3_14" "$desc_3_14"
+
+  infojson "suggest" "chmod 400 <路径到Docker服务器证书密钥文件>这将Docker服务器证书密钥文件权限设置为“400”。"
 
   totalChecks=$((totalChecks + 1))
   if [ -n "$(get_docker_configuration_file_args 'tlskey')" ]; then
@@ -452,6 +480,8 @@ check_3_15() {
   check_3_15="$id_3_15  - $desc_3_15"
   starttestjson "$id_3_15" "$desc_3_15"
 
+  infojson "suggest" "chown root：docker /var/run/docker.sock这将将所有权设置为“root”和组所有权到“docker”作为默认Docker套接字文件。"
+
   totalChecks=$((totalChecks + 1))
   file="/var/run/docker.sock"
   if [ -S "$file" ]; then
@@ -479,6 +509,8 @@ check_3_16() {
   desc_3_16="设置docker.sock文件权限为660或更多限制性 (计入评分)"
   check_3_16="$id_3_16  - $desc_3_16"
   starttestjson "$id_3_16" "$desc_3_16"
+
+  infojson "suggest" "chmod 660 /var/run/docker.sock这会将Docker套接字文件的文件权限设置为660。"
 
   totalChecks=$((totalChecks + 1))
   file="/var/run/docker.sock"
@@ -508,6 +540,8 @@ check_3_17() {
   check_3_17="$id_3_17  - $desc_3_17"
   starttestjson "$id_3_17" "$desc_3_17"
 
+  infojson "suggest" "chown root：root /etc/docker/daemon.json这将将文件的所有权和组所有权设置为“root”。"
+
   totalChecks=$((totalChecks + 1))
   file="/etc/docker/daemon.json"
   if [ -f "$file" ]; then
@@ -535,6 +569,8 @@ check_3_18() {
   desc_3_18="设置daemon.json文件权限为644或更多限制性 (计入评分)"
   check_3_18="$id_3_18  - $desc_3_18"
   starttestjson "$id_3_18" "$desc_3_18"
+
+  infojson "suggest" "chmod 644 /etc/docker/daemon.json这将把该文件的文件权限设置为644。"
 
   totalChecks=$((totalChecks + 1))
   file="/etc/docker/daemon.json"
@@ -564,6 +600,8 @@ check_3_19() {
   check_3_19="$id_3_19  - $desc_3_19"
   starttestjson "$id_3_19" "$desc_3_19"
 
+  infojson "suggest" "chown root:root /etc/default/docker这将文件的所有权和组所有权设置为“root”。"
+
   totalChecks=$((totalChecks + 1))
   file="/etc/default/docker"
   if [ -f "$file" ]; then
@@ -591,6 +629,8 @@ check_3_20() {
   desc_3_20="设置/etc/default/docker文件权限为644或更多限制性 root:root (计入评分)"
   check_3_20="$id_3_20  - $desc_3_20"
   starttestjson "$id_3_20" "$desc_3_20"
+
+  infojson "suggest" "chmod 644 /etc/default/docker这将把该文件的文件权限设置为644。"
 
   totalChecks=$((totalChecks + 1))
   file="/etc/sysconfig/docker"
@@ -620,6 +660,8 @@ check_3_21() {
   check_3_21="$id_3_21  - $desc_3_21"
   starttestjson "$id_3_21" "$desc_3_21"
 
+  infojson "suggest" "chmod 644 /etc/sysconfig/docker。这将把该文件的文件权限设置为 644."
+
   totalChecks=$((totalChecks + 1))
   file="/etc/sysconfig/docker"
   if [ -f "$file" ]; then
@@ -647,6 +689,8 @@ check_3_22() {
   desc_3_22="设置/etc/default/docker的文件权限为644或更多的限制性 (计入评分)"
   check_3_22="$id_3_22  - $desc_3_22"
   starttestjson "$id_3_22" "$desc_3_22"
+
+  infojson "suggest" "chmod 644 /etc/default/docker。这将把该文件的文件权限设置为 644"
 
   totalChecks=$((totalChecks + 1))
   file="/etc/default/docker"
