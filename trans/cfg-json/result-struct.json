@@ -1,0 +1,21 @@
+{
+  "dockerbenchsecurity": "1.3.5",
+  "tests": [
+    {"id": "1", "desc": "Docker主机配置",  "results": [
+    ]},
+    {"id": "2", "desc": "Docker 守护进程安全配置",  "results": [
+    ]},
+    {"id": "3", "desc": "Docker 守护进程文件权限配置",  "results": [
+    ]},
+    {"id": "4", "desc": "容器镜像和构建文件",  "results": [
+    ]},
+    {"id": "5", "desc": "容器运行时保护",  "results": [
+    ]},
+    {"id": "6", "desc": "Docker 安全操作",  "results": [
+    ]},
+    {"id": "7", "desc": "Docker 集群配置",  "results": [
+    ]},
+    {"id": "8", "desc": "Docker 企业版配置",  "results": [
+    ]}
+  ]
+}
