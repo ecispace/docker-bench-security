@@ -207,7 +207,7 @@ check_4_8() {
   check_4_8="$id_4_8  - $desc_4_8"
   starttestjson "$id_4_8" "$desc_4_8"
 
-  infojson "suggest" "只在需要可执行的文件上允许setuid和setgid权限。 可在构建时通过在Dockerfile中添加以下命令来删除这些权限，最好添加在Dockerfile的末尾：RUN find / -perm +6000-type f -exec chmod a-s {} \;|| true。"
+  infojson "suggest" "只在需要可执行的文件上允许setuid和setgid权限。 可在构建时通过在Dockerfile中添加以下命令来删除这些权限，最好添加在Dockerfile的末尾：RUN find / -perm +6000-type f -exec chmod a-s {} -;|| true。"
   infojson "notice" "以上命令会导致依赖setuid或setgid权限（包括合法权限）的可执行文件无法执行，需要小心处理。"
 
   totalChecks=$((totalChecks + 1))
